@@ -18,9 +18,9 @@ print_files=0
 exclude_file=""
 color_mru=""
 color_git=""
-prefix_mru="mru"
-prefix_git="git"
-prefix_std=" - "
+prefix_mru=" "
+prefix_git=" "
+prefix_std=" "
 
 update_mru() {
   # Update MRU_FILE with new selections.  New selections are moved to the top

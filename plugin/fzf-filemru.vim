@@ -73,7 +73,10 @@ function s:wrap_options(options) abort
   function! wrapped.sink(lines) abort
     let selections = []
     for l in a:lines
-      let l = substitute(l, '^\(\s*\(git\|mru\|\-\)\s\+\)', '', '')
+      let l = l[4:-1]
+      " let l = substitute(l, '^\(\s*\(git\|mru\|\-\)\s\+\)', '', '')
+      let l = substitute(l, '^\(\s*\)', '', '')
+
       call add(selections, l)
     endfor
     call s:update_mru(selections)
@@ -111,8 +114,8 @@ function! s:invoke(git_ls, ignore_submodule, options) abort
   let fzf_source .= ' --files'
 
   call fzf#vim#files('', s:wrap_options({
-        \   'source': fzf_source,
-        \   'options': a:options.' --ansi --nth=2',
+        \   'source':  fzf_source.' | devicon-lookup',
+        \   'options': a:options.' --ansi --nth=2'.' --preview "bat --color always --style numbers {2..} | head -50"',
         \ }))
 endfunction
 
