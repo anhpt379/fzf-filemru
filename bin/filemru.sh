@@ -178,8 +178,8 @@ fi
 
 # Just find files and exit
 if [ $print_files -eq 1 ]; then
-  cat $MRU
-  sh -c "$FIND_CMD"
+  sh -c "$FIND_CMD >> $MRU"
+  cat $MRU | awk '!x[$0]++'
   exit $?
 fi
 
