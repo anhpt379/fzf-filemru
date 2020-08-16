@@ -185,8 +185,8 @@ fi
 
 
 # Act as FZF and update FILE_MRU after selection is made
-FIND_CMD="cat ""\$_FZF_MRU"" && $FIND_CMD"
-SELECTIONS=($(exec env _FZF_MRU="$MRU" FZF_DEFAULT_COMMAND="$FIND_CMD" fzf --ansi --nth=2 | awk '{ print $2 }'))
+FIND_CMD="cat ""\$_FZF_MRU"" && $FIND_CMD | uniq"
+SELECTIONS=($(exec env _FZF_MRU="$MRU" FZF_DEFAULT_COMMAND="$FIND_CMD" FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS" fzf --ansi --nth=2 | awk '{ print $2 }'))
 
 if [ ${#SELECTIONS[@]} -eq 0 ]; then
   exit $?
