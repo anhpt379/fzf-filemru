@@ -18,9 +18,9 @@ print_files=0
 exclude_file=""
 color_mru=""
 color_git=""
-prefix_mru=" "
-prefix_git=" "
-prefix_std=" "
+prefix_mru=""
+prefix_git=""
+prefix_std=""
 
 update_mru() {
   # Update MRU_FILE with new selections.  New selections are moved to the top
@@ -138,8 +138,10 @@ if [ -f "$MRU_FILE" ]; then
       if [ "$fn" != "$exclude_file" ]; then
         if [ -n "$color_mru" ]; then
           printf "\e[38;5;${color_mru}m${prefix_mru}\e[m ${cut_fn}\n" >> $MRU
-        else
+        elif [ -z "$prefix_mru" ]; then
           echo "${prefix_mru} $cut_fn" >> $MRU
+        else
+          echo "$cut_fn" >> $MRU
         fi
       fi
     fi
@@ -156,8 +158,10 @@ if [[ -n "$git_root" && $git_ls -eq 1 ]]; then
     if [ "$p" != "$exclude_file" ]; then
       if [ -n "$color_git" ]; then
         printf "\e[38;5;${color_git}m${prefix_git}\e[m ${cut_fn}\n" >> $MRU
-      else
+      elif [ -z "$prefix_git" ]; then
         echo "${prefix_git} $cut_fn" >> $MRU
+      else
+        echo "$cut_fn" >> $MRU
       fi
     fi
   done
@@ -167,7 +171,9 @@ FIND_CMD=${FZF_DEFAULT_COMMAND:-$DEFAULT_COMMAND}
 if [ -s "$GREP_EXCLUDE" ]; then
   FIND_CMD+=" | $GREP_EXCLUDE_CMD"
 fi
-FIND_CMD+=" | awk '\$0=\"${prefix_std} \"\$0'"
+if [ -z "$prefix_std" ]; then
+  FIND_CMD+=" | awk '\$0=\"${prefix_std} \"\$0'"
+fi
 
 
 # Just find files and exit
