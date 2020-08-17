@@ -115,7 +115,7 @@ function! s:invoke(git_ls, ignore_submodule, options) abort
 
   call fzf#vim#files('', s:wrap_options({
         \   'source':  fzf_source.' | devicon-lookup',
-        \   'options': a:options.' --ansi --nth=2'.' --preview "bat --color always {2..} | head -50"',
+        \   'options': a:options.' --ansi --nth=2'.' --preview "bat --color=always --line-range=:50 {2..}"',
         \ }))
 endfunction
 
