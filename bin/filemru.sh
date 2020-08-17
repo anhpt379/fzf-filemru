@@ -137,9 +137,9 @@ if [ -f "$MRU_FILE" ]; then
       echo "$cut_fn" >> $GREP_EXCLUDE
       if [ "$fn" != "$exclude_file" ]; then
         if [ -n "$color_mru" ]; then
-          printf "\e[38;5;${color_mru}m${prefix_mru}\e[m ${cut_fn}\n" >> $MRU
+          printf "\e[38;5;${color_mru}m${prefix_mru}\e[m${cut_fn}\n" >> $MRU
         elif [ -z "$prefix_mru" ]; then
-          echo "${prefix_mru} $cut_fn" >> $MRU
+          echo "${prefix_mru}$cut_fn" >> $MRU
         else
           echo "$cut_fn" >> $MRU
         fi
@@ -172,7 +172,7 @@ if [ -s "$GREP_EXCLUDE" ]; then
   FIND_CMD+=" | $GREP_EXCLUDE_CMD"
 fi
 if [ -z "$prefix_std" ]; then
-  FIND_CMD+=" | awk '\$0=\"${prefix_std} \"\$0'"
+  FIND_CMD+=" | awk '\$0=\"${prefix_std}\"\$0'"
 fi
 
 
