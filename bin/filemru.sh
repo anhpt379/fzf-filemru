@@ -154,7 +154,6 @@ if [[ -n "$git_root" && $git_ls -eq 1 ]]; then
     p="$git_root/$p"
     [[ ! -e "$p" ]] && continue
     cut_fn="${p##$REAL_PWD/}"
-    echo "$cut_fn" >> $GREP_EXCLUDE
     if [ "$p" != "$exclude_file" ]; then
       if [ -n "$color_git" ]; then
         printf "\e[38;5;${color_git}m${prefix_git}\e[m ${cut_fn}\n" >> $MRU
@@ -178,8 +177,8 @@ fi
 
 # Just find files and exit
 if [ $print_files -eq 1 ]; then
-  sh -c "$FIND_CMD >> $MRU"
-  cat $MRU | awk '!x[$0]++'
+  cat $MRU | uniq | tee -a $GREP_EXCLUDE
+  sh -c "$FIND_CMD"
   exit $?
 fi
 
