@@ -115,7 +115,7 @@ function! s:invoke(git_ls, ignore_submodule, options) abort
 
   call fzf#vim#files('', s:wrap_options({
         \   'source':  fzf_source.' | devicon add',
-        \   'options': a:options.' --ansi --nth=2'.' --preview-window=right:60% --bind=ctrl-/:toggle-preview --preview "bat --color=always {2..}"',
+        \   'options': a:options.' --ansi --nth=2'.' --preview-window=right:60% --bind=ctrl-/:toggle-preview --preview "$FZF_DEFAULT_PREVIEW_COMMAND"',
         \ }))
 endfunction
 
