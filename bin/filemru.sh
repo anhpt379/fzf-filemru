@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 CACHE=${XDG_CACHE_HOME:-$HOME/.cache}
-MRU_MAX=200
+MRU_MAX=10000
 # MRU_FILE is a list of files that were selected in FZF through this script.
 # Each line is 3 comma separated values of: timestamp, select count, file name
 # The select count is used as a tie breaker for lines with the same timestamp.
