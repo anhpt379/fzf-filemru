@@ -5,7 +5,7 @@ MRU_MAX=10000
 # Each line is 3 comma separated values of: timestamp, select count, file name
 # The select count is used as a tie breaker for lines with the same timestamp.
 MRU_FILE=$CACHE/fzf_filemru
-DEFAULT_COMMAND="find . -path '*/\\.*' -prune -o -type f -print -o -type l -print 2> /dev/null | sed s/^..//"
+DEFAULT_COMMAND="fd --hidden --type f --color=never --exclude '.git' -E '*.jp*g' -E '*.png' 2> /dev/null"
 REAL_PWD="$(pwd -P)"
 
 if [ ! -d "$CACHE" ]; then
@@ -166,7 +166,7 @@ if [[ -n "$git_root" && $git_ls -eq 1 ]]; then
   done
 fi
 
-FIND_CMD=${FZF_DEFAULT_COMMAND:-$DEFAULT_COMMAND}
+FIND_CMD=$DEFAULT_COMMAND
 if [ -s "$GREP_EXCLUDE" ]; then
   FIND_CMD+=" | $GREP_EXCLUDE_CMD"
 fi
