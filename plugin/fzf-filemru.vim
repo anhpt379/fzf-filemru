@@ -111,7 +111,7 @@ function! s:invoke(git_ls, ignore_submodule, options) abort
 
   call fzf#vim#files('', s:wrap_options({
         \   'source':  fzf_source.' | devicon add',
-        \   'options': a:options.' --ansi --nth=2'.' --preview-window=right:60% --tiebreak=index --bind=ctrl-s:toggle-sort --bind=ctrl-/:toggle-preview --preview "$FZF_PREVIEW_COMMAND" --header="$(tput setaf 1)CTRL-S$(tput sgr0) to toggle recency sort, $(tput setaf 1)CTRL-/$(tput sgr0) to toggle preview"',
+        \   'options': a:options.' --ansi --nth=2'.' --preview-window=right:60% --scheme=path --bind=ctrl-s:toggle-sort --bind=ctrl-/:toggle-preview --preview "$FZF_PREVIEW_COMMAND" --header="$(tput setaf 1)CTRL-S$(tput sgr0) to toggle recency sort, $(tput setaf 1)CTRL-/$(tput sgr0) to toggle preview"',
         \ }))
 endfunction
 
